@@ -23,7 +23,7 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("com.example.pogodaspring")
-//@PropertySource("classpath:hibernate.properties")
+@PropertySource("classpath:application.properties")
 @EnableWebMvc
 @EnableTransactionManagement
 public class SpringConfig implements WebMvcConfigurer {
@@ -51,19 +51,19 @@ public class SpringConfig implements WebMvcConfigurer {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("hibernate.driver_class"));
-        dataSource.setUrl(environment.getProperty("hibernate.connection.url"));
-        dataSource.setUsername(environment.getProperty("hibernate.connection.username"));
-        dataSource.setPassword(environment.getProperty("hibernate.connection.password"));
-
+        dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driver-class-name"));
+        dataSource.setUrl(environment.getRequiredProperty("spring.datasource.url"));
+        dataSource.setUsername(environment.getRequiredProperty("spring.datasource.username"));
+        dataSource.setPassword(environment.getRequiredProperty("spring.datasource.password"));
         return dataSource;
     }
 
+
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
-        properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
-
+        properties.put("hibernate.dialect", environment.getRequiredProperty("spring.jpa.properties.hibernate.dialect")); 
+        properties.put("hibernate.show_sql", environment.getRequiredProperty("spring.jpa.show-sql"));
+        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("spring.jpa.hibernate.ddl-auto"));
         return properties;
     }
 

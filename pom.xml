@@ -159,6 +159,13 @@
       <version>${spring.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webflux</artifactId>
+      <version>${spring.version}</version> <!-- Укажите версию, соответствующую вашей версии Spring -->
+    </dependency>
+
+
     <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring6 -->
     <dependency>
       <groupId>org.thymeleaf</groupId>
