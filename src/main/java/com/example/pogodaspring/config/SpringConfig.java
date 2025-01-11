@@ -1,5 +1,6 @@
 package com.example.pogodaspring.config;
 
+import com.example.pogodaspring.filter.SessionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -34,18 +35,18 @@ public class SpringConfig implements WebMvcConfigurer {
         this.applicationContext = applicationContext;
         this.environment = environment;
     }
-//TODO
-/*    @Bean
+
+    @Bean
     public SessionInterceptor sessionInterceptor() {
         return new SessionInterceptor();
     }
-//TODO
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/resources/**");
-    }*/
+                .excludePathPatterns("/static/**");
+    }
 
     @Bean
     public DataSource dataSource() {
@@ -70,7 +71,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.example.calcmvc.model");
+        sessionFactory.setPackagesToScan("com.example.pogodaspring.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;
@@ -112,8 +113,8 @@ public class SpringConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("/static/");
     }
 
 

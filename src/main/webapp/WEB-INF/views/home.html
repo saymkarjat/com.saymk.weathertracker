@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <!-- Подключаем шрифт -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet">
+    <!-- Стили кнопок -->
+    <!-- Основные стили страницы -->
+    <link rel="stylesheet" th:href="@{/resources/css/homestyle.css}">
+    <!--<link rel="stylesheet" href="css/home.css">-->
+</head>
+
+<body>
+<header class="main-header">
+    <!-- Кнопки входа/выхода -->
+    <div class="auth-buttons">
+        <!-- Если пользователь не залогинен -->
+        <form th:if="${!isUserAuthenticated}" th:action="@{/auth/signin}" method="get">
+            <button type="submit" class="form-button">Sign In</button>
+        </form>
+        <form th:if="${!isUserAuthenticated}" th:action="@{/auth/signup}" method="get">
+            <button type="submit" class="form-button">Sign Up</button>
+        </form>
+
+        <!-- Если пользователь залогинен -->
+        <span th:if="${isUserAuthenticated}" class="username" th:text="${username}"></span>
+        <form th:if="${isUserAuthenticated}" th:action="@{/auth/logout}" method="get">
+            <button type="submit" class="form-button">Log Out</button>
+        </form>
+    </div>
+</header>
+
+
+<main class="main-content">
+    <h1 class="page-title">Welcome to the Home Page!</h1>
+    <div th:if="${isUserAuthenticated}" class="user-greeting">
+        <p>
+            Glad to see you back,
+            <span th:text="${username}"></span>!
+            Enjoy your time here.
+        </p>
+    </div>
+    <div th:if="${!isUserAuthenticated}" class="guest-welcome">
+        <p>
+            Welcome, guest! Please sign in or sign up to explore more features.
+        </p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 Mikhail Popkov Company. All Rights Reserved.</p>
+</footer>
+
+
+</body>
+</html>
+
