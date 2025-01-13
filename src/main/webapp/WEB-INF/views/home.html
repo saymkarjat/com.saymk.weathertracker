@@ -12,7 +12,7 @@
             rel="stylesheet">
     <!-- Стили кнопок -->
     <!-- Основные стили страницы -->
-    <link rel="stylesheet" th:href="@{/resources/css/homestyle.css}">
+    <link rel="stylesheet" th:href="@{/static/css/homestyle.css}">
     <!--<link rel="stylesheet" href="css/home.css">-->
 </head>
 
@@ -31,7 +31,7 @@
         <!-- Если пользователь залогинен -->
         <span th:if="${isUserAuthenticated}" class="username" th:text="${username}"></span>
         <form th:if="${isUserAuthenticated}" th:action="@{/auth/logout}" method="get">
-            <button type="submit" class="form-button">Log Out</button>
+            <button type="submit" class="form-button freeze-button">Log Out</button>
         </form>
     </div>
 </header>
@@ -42,7 +42,7 @@
     <div th:if="${isUserAuthenticated}" class="user-greeting">
         <p>
             Glad to see you back,
-            <span th:text="${username}"></span>!
+            <span th:text="${username}"></span>
             Enjoy your time here.
         </p>
     </div>
@@ -56,6 +56,8 @@
 <footer>
     <p>&copy; 2025 Mikhail Popkov Company. All Rights Reserved.</p>
 </footer>
+
+<script th:src="@{/js/button-freeze.js}" defer></script>
 
 
 </body>

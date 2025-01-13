@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
-//todo
+
 @Repository
-public class SessionRepository implements BaseRepository<Session, UUID>{
+public class SessionRepository {
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -33,19 +33,4 @@ public class SessionRepository implements BaseRepository<Session, UUID>{
         return Optional.ofNullable(sessionFactory.getCurrentSession().get(Session.class, id));
     }
 
-
-    @Override
-    public void save(Session entity) {
-
-    }
-
-    @Override
-    public void remove(Session entity) {
-
-    }
-
-    @Override
-    public Optional<Session> findById(UUID uuid) {
-        return Optional.empty();
-    }
 }

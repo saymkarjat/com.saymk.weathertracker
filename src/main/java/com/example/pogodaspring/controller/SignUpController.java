@@ -44,14 +44,13 @@ public class SignUpController {
         if (bindingResult.hasErrors()) {
             return "signuppost";
         }
-        sessionService.deleteSessionIfNewUserHasBeenRegistered(req, resp);
         try {
             signUpService.signUp(userDTO);
         }catch (UserAlreadyExistException e){
             bindingResult.rejectValue("username", "error.username", "Пользователь с таким именем уже существует");
             return "signuppost";
         }
-        return "redirect:/app/home";
+        return "redirect:/auth/logout";
     }
 }
 

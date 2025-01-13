@@ -15,6 +15,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     private SessionService sessionService;
 
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         Optional<SessionDTO> optionalSessionDTO = sessionService.getSessionDuringIntercept(request);

@@ -1,7 +1,9 @@
 package com.example.pogodaspring.config;
 
 import com.example.pogodaspring.filter.SessionInterceptor;
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,6 +32,7 @@ public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
     private final Environment environment;
 
+
     @Autowired
     public SpringConfig(ApplicationContext applicationContext, Environment environment) {
         this.applicationContext = applicationContext;
@@ -51,19 +54,27 @@ public class SpringConfig implements WebMvcConfigurer {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driver-class-name"));
-        dataSource.setUrl(environment.getRequiredProperty("spring.datasource.url"));
-        dataSource.setUsername(environment.getRequiredProperty("spring.datasource.username"));
-        dataSource.setPassword(environment.getRequiredProperty("spring.datasource.password"));
+        dataSource.setDriverClassName(environment.getProperty("spring.datasource.driver-class-name"));
+        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
+        dataSource.setUsername(environment.getProperty("spring.datasource.username"));
+        dataSource.setPassword(environment.getProperty("spring.datasource.password"));
         return dataSource;
     }
 
+    @Bean
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog(environment.getProperty("spring.liquibase.change-log"));
+        liquibase.setDataSource(dataSource);
+        liquibase.setShouldRun(Boolean.parseBoolean(environment.getProperty("spring.liquibase.enabled", "true")));
+        return liquibase;
+    }
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", environment.getRequiredProperty("spring.jpa.properties.hibernate.dialect")); 
-        properties.put("hibernate.show_sql", environment.getRequiredProperty("spring.jpa.show-sql"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("spring.jpa.hibernate.ddl-auto"));
+        properties.put("hibernate.dialect", environment.getProperty("spring.jpa.properties.hibernate.dialect"));
+        properties.put("hibernate.show_sql", environment.getProperty("spring.jpa.show-sql"));
+        properties.put("hibernate.hbm2ddl.auto", environment.getProperty("spring.jpa.hibernate.ddl-auto"));
         return properties;
     }
 

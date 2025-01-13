@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-//todo
+
 @Repository
-public class UserRepository implements BaseRepository<User, Long> {
+public class UserRepository  {
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -43,22 +43,4 @@ public class UserRepository implements BaseRepository<User, Long> {
                 .uniqueResultOptional();
     }
 
-
-
-
-    @Override
-    public void save(User entity) {
-
-    }
-
-    @Override
-    public void remove(User entity) {
-
-    }
-
-    @Override
-    public Optional<User> findById(Long aLong) {
-        return Optional.empty();
-    }
-    // реализация методов UserRepository
 }
