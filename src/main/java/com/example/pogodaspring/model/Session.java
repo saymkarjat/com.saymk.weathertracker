@@ -22,9 +22,11 @@ public class Session {
     @GeneratedValue
     @UuidGenerator
     private UUID id;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
     @Column(name = "expires_at")
     private Instant expiresAt;
 }
