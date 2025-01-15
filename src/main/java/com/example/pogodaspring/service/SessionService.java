@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @Service
 public class SessionService {
-    //todo baserepository
+
     private final SessionRepository sessionRepository;
     private final UserRepository userRepository;
 
@@ -31,7 +31,7 @@ public class SessionService {
         this.userRepository = userRepository;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public SessionDTO createNewUserSession(User user) {
         Session session = new Session();
         session.setExpiresAt(Instant.now().plus(2, ChronoUnit.HOURS));
