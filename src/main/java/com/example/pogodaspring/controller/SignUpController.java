@@ -22,13 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SignUpController {
     private SignUpService signUpService;
     private SignUpUserDtoValidator userDtoValidator;
-    private SessionService sessionService;
+
 
     @Autowired
-    public SignUpController(SignUpService signUpService, SignUpUserDtoValidator userDtoValidator, SessionService sessionService) {
+    public SignUpController(SignUpService signUpService, SignUpUserDtoValidator userDtoValidator) {
         this.signUpService = signUpService;
         this.userDtoValidator = userDtoValidator;
-        this.sessionService = sessionService;
     }
 
     @GetMapping("signup")
@@ -39,7 +38,7 @@ public class SignUpController {
     }
 
     @PostMapping("signup")
-    public String signUp(@ModelAttribute("userDTO") @Validated SignUpUserDTO userDTO, BindingResult bindingResult, HttpServletRequest req, HttpServletResponse resp) {
+    public String signUp(@ModelAttribute("userDTO") @Validated SignUpUserDTO userDTO, BindingResult bindingResult) {
         userDtoValidator.validate(userDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "signuppost";

@@ -1,11 +1,13 @@
 package com.example.pogodaspring.repository;
 
+import com.example.pogodaspring.model.Session;
 import com.example.pogodaspring.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -41,6 +43,13 @@ public class UserRepository  {
         return sessionFactory.getCurrentSession().createQuery("from User WHERE login =:login", User.class)
                 .setParameter("login", login)
                 .uniqueResultOptional();
+    }
+    @Transactional(readOnly = true)
+    public List<Session> getUserSessions(String login){
+        String hql = "SELECT s FROM Session s JOIN FETCH s.user u WHERE u.login = :login";
+        return sessionFactory.getCurrentSession().createQuery(hql, Session.class)
+                .setParameter("login", login)
+                .getResultList();
     }
 
 }

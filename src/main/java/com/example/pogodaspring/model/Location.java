@@ -7,7 +7,10 @@ import org.hibernate.annotations.DynamicUpdate;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "locations")
+@Table(
+        name = "locations",
+        indexes = @Index(name = "index_location_name", columnList = "name")
+)
 @DynamicUpdate
 @Getter
 @Setter
@@ -32,8 +35,4 @@ public class Location {
 
     @Column(name = "longitude")
     private BigDecimal longitude;
-
-
-    
-
 }

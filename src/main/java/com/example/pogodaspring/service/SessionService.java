@@ -10,6 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.WebUtils;
 
@@ -30,7 +31,7 @@ public class SessionService {
         this.userRepository = userRepository;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public SessionDTO createNewUserSession(User user) {
         Session session = new Session();
         session.setExpiresAt(Instant.now().plus(2, ChronoUnit.HOURS));
@@ -51,6 +52,7 @@ public class SessionService {
         }
         User user = session.get().getUser();
         user.getSessions().remove(session.get());
+        //sessionRepository.removeSession(session.get());
 
         userRepository.updateUser(user);
     }

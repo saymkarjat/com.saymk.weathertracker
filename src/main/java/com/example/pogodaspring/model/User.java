@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@DynamicUpdate
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,10 +26,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Session> sessions;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Session> sessions = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Session> locations;
-
+    private List<Session> locations = new ArrayList<>();
 }
