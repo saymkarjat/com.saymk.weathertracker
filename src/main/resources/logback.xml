@@ -1,0 +1,35 @@
+<configuration>
+
+    <root level="info">
+        <appender-ref ref="INFO_FILE" />
+        <appender-ref ref="ERROR_FILE" />
+    </root>
+
+
+    <appender name="INFO_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>../logs/info.log</file>
+        <append>false</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss} - %msg (at %class.%method:%line)%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>../logs/error.log</file>
+        <append>false</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss} - %msg (at %class.%method:%line)%n</pattern>
+        </encoder>
+    </appender>
+</configuration>
