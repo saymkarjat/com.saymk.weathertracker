@@ -6,15 +6,14 @@ import com.example.pogodaspring.model.User;
 import com.example.pogodaspring.repository.UserRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SignUpService {
     //todo
-    private UserRepository userRepository;
-    private PasswordService passwordService;
+    private final UserRepository userRepository;
+    private final PasswordService passwordService;
 
     @Autowired
     public SignUpService(UserRepository userRepository, PasswordService passwordService) {
