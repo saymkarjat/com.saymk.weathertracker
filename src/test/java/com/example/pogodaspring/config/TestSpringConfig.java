@@ -1,6 +1,7 @@
 package com.example.pogodaspring.config;
 
 import com.example.pogodaspring.filter.SessionInterceptor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.config.annotation.*;
 import org.testcontainers.containers.PostgreSQLContainer;
 import javax.sql.DataSource;
@@ -88,6 +90,15 @@ public class TestSpringConfig implements WebMvcConfigurer {
         registry.addInterceptor(sessionInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/static/**");
+    }
+
+    @Bean
+    public WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
+    }
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
 }

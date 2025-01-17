@@ -22,10 +22,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@SpringJUnitConfig(TestSpringConfig.class)
-@WebAppConfiguration
 @ActiveProfiles("test")
+@SpringJUnitConfig(classes = TestSpringConfig.class)
+@WebAppConfiguration
 class SignInControllerTest {
     private MockMvc mockMvc;
 
