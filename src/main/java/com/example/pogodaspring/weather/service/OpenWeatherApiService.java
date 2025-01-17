@@ -2,7 +2,6 @@ package com.example.pogodaspring.weather.service;
 
 import com.example.pogodaspring.weather.dto.GeoResponseDTO;
 import com.example.pogodaspring.weather.dto.WeatherResponseDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -66,7 +65,7 @@ public class OpenWeatherApiService {
     }
 
     @SneakyThrows
-    public WeatherResponseDTO getLocationWeatherByCoordinate(BigDecimal latitude, BigDecimal longitude, String units) {
+    public WeatherResponseDTO getWeatherInfoByCoordinate(BigDecimal latitude, BigDecimal longitude, String units) {
         String string = fetchLocationWeatherByCoordinate(latitude, longitude, units);
         return objectMapper.readValue(string, WeatherResponseDTO.class);
     }
