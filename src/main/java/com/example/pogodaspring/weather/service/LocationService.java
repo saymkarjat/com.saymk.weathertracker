@@ -41,6 +41,7 @@ public class LocationService {
         return weatherApiService.getWeatherInfoByCoordinate(latitude, longitude, units);
     }
 
+    @Transactional
     public void deleteLocationById(int id, String username) {
         Optional<User> optionalUser = userRepository.findByLogin(username);
         User user = optionalUser.get();
@@ -50,6 +51,7 @@ public class LocationService {
             throw new LocationUndefinedException("Location undefined");
         }
         user.getLocations().remove(locationById.get());
+        locationRepository.removeLocation(locationById.get());
         userRepository.updateUser(user);
     }
 
@@ -61,8 +63,9 @@ public class LocationService {
         }
         return updatedList;
     }
+
     @Transactional
-    public void addNewLocation(BigDecimal lat, BigDecimal lon, String city, String username) {
+    public void addNewLocation(String lat, String lon, String city, String username) {
         Optional<User> optionalUser = userRepository.findByLogin(username);
         if (optionalUser.isEmpty()){
             log.error("This user undefined: {}", username);
@@ -71,14 +74,15 @@ public class LocationService {
         User user = optionalUser.get();
         Location location = Location.builder()
                 .user(optionalUser.get())
-                .latitude(lat)
-                .longitude(lon)
+                .latitude(new BigDecimal(lat))
+                .longitude(new BigDecimal(lon))
                 .name(city)
                 .build();
         locationRepository.saveLocation(location);
         user.getLocations().add(location);
         userRepository.updateUser(user);
     }
+
     @Transactional(readOnly = true)
     public List<LocationDTO> getUserLocations(String username) {
         User user = userRepository.findByLogin(username).get();
