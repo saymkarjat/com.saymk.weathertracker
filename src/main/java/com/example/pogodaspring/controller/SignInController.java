@@ -36,7 +36,7 @@ public class SignInController {
         return "signinpost";
 
     }
-
+    //todo
     @PostMapping("signin")
     public String signIn(@ModelAttribute("userDTO") @Validated SignInUserDTO userDTO, BindingResult bindingResult, HttpServletResponse response) {
         userDtoValidator.validate(userDTO, bindingResult);
@@ -49,7 +49,7 @@ public class SignInController {
 
         return "redirect:/app/home";
     }
-
+    //todo
     @GetMapping("logout")
     public String logOut(HttpServletRequest req, HttpServletResponse resp) {
         sessionService.deleteSessionIfNewUserHasBeenRegistered(req, resp);
