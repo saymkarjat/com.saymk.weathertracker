@@ -5,15 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Подключаем шрифт -->
-    <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-            rel="stylesheet">
-    <!-- Стили кнопок -->
-    <!-- Основные стили страницы -->
     <link rel="stylesheet" th:href="@{/static/css/homestyle.css}">
-    <!--<link rel="stylesheet" href="css/home.css">-->
+    <link rel="stylesheet" th:href="@{/static/css/form.css}">
+    <link rel="stylesheet" th:href="@{/static/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/header.css}">
+    <link rel="stylesheet" th:href="@{/static/css/button.css}">
+    <link rel="stylesheet" th:href="@{/static/css/weather.css}">
 </head>
 
 <body>
@@ -36,30 +35,71 @@
     </div>
 </header>
 
-
 <main class="main-content">
     <h1 class="page-title">Welcome to the Home Page!</h1>
     <div th:if="${isUserAuthenticated}" class="user-greeting">
-        <p>
-            Glad to see you back,
-            <span th:text="${username}"></span>
-            Enjoy your time here.
-        </p>
+        <form th:action="@{/app/search}" method="post" class="search-form">
+            <input
+                    type="text"
+                    name="location"
+                    placeholder="Enter location"
+                    maxlength="20"
+                    class="search-input"
+                    id="search-input"
+                    pattern="[A-Za-zА-Яа-я\s]+"
+                    title="Only letters and spaces are allowed."
+                    required
+            />
+            <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <!-- Контейнер для карточек -->
+        <div class="card-container">
+            <div th:each="location : ${locations}" class="weather-card">
+                <!-- Кнопка удаления -->
+                <form th:action="@{/app/location/delete}" method="post">
+                    <input type="hidden" name="locationId" th:value="${location.getId()}" />
+                    <button type="submit" class="close-button">×</button>
+                </form>
+
+                <!-- Анимация погоды -->
+                <div class="weather-animation" th:switch="${location.getWeatherResponseDTO().getWeather()[0].getMainWeather()}">
+                    <div th:case="'Clear'" class="sunny"></div>
+                    <div th:case="'Clouds'" class="cloudy"></div>
+                    <div th:case="'Rain'" class="rainy"></div>
+                    <div th:case="'Snow'" class="snowy"></div>
+                    <div th:case="'Drizzle'" class="rainy"></div>
+                    <div th:case="'Thunderstorm'" class="stormy"></div>
+                    <div th:case="'Mist'" class="cloudy"></div>
+                    <div th:case="'Fog'" class="cloudy"></div>
+                    <div th:case="'Tornado'" class="stormy"></div>
+                </div>
+
+                <!-- Информация о погоде -->
+                <div class="weather-info">
+                    <p class="temperature" th:text="${location.getWeatherResponseDTO().getWeatherInfo().getTemp()} + '°C'"></p>
+                    <p class="city" th:text="${location.getName()} + ', ' + ${location.getWeatherResponseDTO().getSys().getCountry()}"></p>
+                    <p class="main-weather" th:text="${location.getWeatherResponseDTO().getWeather()[0].getMainWeather()}"></p>
+                    <p class="details" th:text="'Description: ' + ${location.getWeatherResponseDTO().getWeather()[0].getDescription()}"></p>
+                    <p class="feels-like" th:text="'Feels like: ' + ${location.getWeatherResponseDTO().getWeatherInfo().getFeelsLike()} + '°C'"></p>
+                    <p class="humidity" th:text="'Humidity: ' + ${location.getWeatherResponseDTO().getWeatherInfo().getHumidity()} + '%'"></p>
+                </div>
+            </div>
+        </div>
     </div>
     <div th:if="${!isUserAuthenticated}" class="guest-welcome">
         <p>
             Welcome, guest! Please sign in or sign up to explore more features.
         </p>
     </div>
+
+
+
 </main>
 
 <footer>
-    <p>&copy; 2025 Mikhail Popkov Company. All Rights Reserved.</p>
+    <p>&copy; 2025 Petukh Company. All Rights Deserved.</p>
 </footer>
-
-<script th:src="@{/js/button-freeze.js}" defer></script>
-
 
 </body>
 </html>
-

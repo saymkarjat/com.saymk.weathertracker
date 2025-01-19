@@ -1,0 +1,52 @@
+/* Эффекты для кнопок */
+.form-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  color: #000000;
+  background: linear-gradient(45deg, #6b6b6b, #dedede, #313131);
+  border: 1px solid #000000;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s, transform 0.3s, box-shadow 0.3s;
+  z-index: 1;
+}
+
+.form-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-button:hover {
+  background: linear-gradient(45deg, #797878, #c7c7c7, #f5f5f5);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  border: 1px solid hsla(210, 60%, 100%, 0.6);
+  color: hsla(210, 60%, 100%, 0.8);
+}
+
+.form-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 60%;
+  transition: 0.3s ease;
+  border-radius: 50px 40px 40px 40px;
+  z-index: -1;
+}
+
+.form-button:hover::before {
+  width: 100%;
+}
+
+.form-button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(114, 114, 114, 0.7);
+}

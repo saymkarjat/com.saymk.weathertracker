@@ -10,235 +10,186 @@ body {
     color: #e8eaed; /* Светлый текст */
 }
 
-/* Header */
-.main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #2b2d2f; /* Темный фон для header */
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: flex-end; /* Кнопки и логин выровнены справа */
-    align-items: flex-end;/* Выравнивание по вертикали */
-    flex-wrap: nowrap;
-    z-index: 10;
-    box-shadow: 0 4px 8px rgba(23, 23, 23, 0.4);
-}
-
-/* Контейнер для кнопок */
-.auth-buttons {
-    display: flex;
-    flex-wrap: nowrap; /* Кнопки расположены в один ряд */
-    gap: 1rem; /* Расстояние между кнопками */
-    padding-right: 30px;
-}
-
-
-/* Формы обертки для кнопок */
-.auth-buttons form {
-    display: inline-block; /* Формы становятся строчными блоками */
-    margin: 0;
-}
-
-/* Кнопки */
-.auth-buttons .form-button {
-    width: auto; /* Убираем ширину 100% */
-    padding: 0.5rem 1rem; /* Уменьшенный отступ */
-    font-size: 0.9rem;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Имя пользователя */
-.username {
-    font-size: 1rem;
-    color: #e8eaed;
-    margin-right: 0.5rem;
-}
-
-/* Основной контент */
 .main-content {
-    flex-grow: 1; /* Контент занимает оставшееся место */
-    padding: 8rem 2rem 2rem; /* Отступ сверху, чтобы не перекрывался header */
+    flex-grow: 1;
+    padding: 8rem 2rem 2rem;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Заголовок */
 .page-title {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    width: 100%; /* На всю ширину страницы */
-    max-width: 400px; /* Сужение, как было до этого */
-    margin: 0 auto; /* Центрирование footer */
-    padding: 1rem;
-    background-color: #2b2d2f;
-    color: #999;
-    font-size: 0.875rem;
+/* Строка поиска */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
 }
 
-footer p {
-    margin: 0;
-}
-
-/* Контейнер формы */
-.form-container {
-    background-color: #303134; /* Темный фон формы */
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Тень для формы */
+.search-input {
     width: 100%;
-    max-width: 400px;
+    max-width: 90%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #555;
+    border-radius: 30px;
+    background-color: #303134;
+    color: #e8eaed;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: #1a73e8;
+}
+
+.search-button {
+    background: linear-gradient(45deg, #6b6b6b, #dedede, #313131);
+    color: #000000;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.5s ease, color 0.5s ease, transform 0.4s ease; /* Добавляем плавный переход */
+}
+
+.search-button:hover {
+    background: linear-gradient(45deg, #666666, #434343, #010101);
+    color: #ffffff;
+    transform: scale(1.05); /* Добавляем легкий масштаб для большего эффекта */
+}
+
+/* Карточки */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
-/* Заголовок формы */
-.form-title {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    color: #e8eaed; /* Светлый цвет текста */
-    font-weight: 500;
-}
-
-/* Группа формы */
-.form-group {
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Лейблы формы */
-.form-label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: #e8eaed; /* Светлый цвет лейблов */
-}
-
-/* Элементы управления формы (input, textarea) */
-.form-control {
-    padding: 0.8rem;
-    border: 1px solid #444; /* Темная граница */
-    border-radius: 6px;
-    font-size: 1rem;
-    background-color: #434545; /* Темный фон для инпутов */
-    color: #e8eaed; /* Светлый текст в инпутах */
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-/* Эффект фокуса для инпутов */
-.form-control:focus {
-    border-color: #1a73e8; /* Голубая граница при фокусе */
-    box-shadow: 0 0 5px rgba(26, 115, 232, 0.5); /* Легкое свечение */
-    outline: none;
-}
-
-/* Сообщение об ошибке */
-.error-message {
-    margin-top: 0.5rem;
-    color: #ea4335; /* Красный цвет ошибки */
-    font-size: 0.875rem;
-}
-
-/* Эффекты для кнопок */
-.form-button {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
-    color: #000000;
-    background: linear-gradient(45deg, #6b6b6b, #dedede, #313131);
-    border: 1px solid #000000; /* Обводка белого цвета толщиной 1px */
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 700;
-    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
+.weather-card {
+    background-color: #444446;
+    border: 1px solid #3c4043;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    width: 300px; /* Увеличенная ширина карточки */
+    padding: 25px; /* Больше пространства внутри карточки */
     position: relative;
-    overflow: hidden;
-    transition: background 0.5s, transform 0.3s, box-shadow 0.3s;
-    z-index: 1; /* Добавим z-index, чтобы текст был выше анимации */
-}
-
-/* Эффект нажатия */
-.form-button:active {
-    transform: scale(0.95);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Плавное изменение фона при наведении */
-.form-button:hover {
-    background: linear-gradient(45deg, #797878, #c7c7c7, #f5f5f5);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-/* Эффект при наведении с анимацией */
-.form-button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    opacity: 60%;
-    transition: 0.3s ease; /* Увеличен переход для плавности */
-    border-radius: 50px 40px 40px 40px; /* Закругляем первую часть */
-    z-index: -1; /* Ставим анимацию ниже текста */
-}
-
-.form-button:hover::before {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* Тени для создания эффекта 3D */
-.form-button:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(114, 114, 114, 0.7);
-}
-
-/* Стили для signup-link */
-.signup-link {
-    margin-top: 20px;
     text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 }
 
-.signup-link p {
-    color: #e8eaed; /* Цвет текста */
-    font-weight: 400;
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
-.signup-button {
+/* Для адаптивности */
+@media (max-width: 768px) {
+    .weather-card {
+        width: 90%; /* На мобильных карточки занимают почти всю ширину экрана */
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-card {
+        width: 100%; /* На очень узких экранах карточки занимают всю ширину */
+    }
+}
+
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
     color: #e8eaed;
-    text-decoration: underline;
-    font-weight: 200;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-.signup-button:hover {
-    opacity: 0.7; /* Изменение прозрачности текста */
-    color: #888888; /* Изменение цвета текста */
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); /* Добавление легкой тени */
-    transform: scale(1.1); /* Увеличение текста */
-    transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+.close-button:hover {
+    color: #f28b82;
+}
+
+.weather-info {
+    font-size: 14px;
+    color: #9aa0a6;
+}
+
+.temperature {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e8eaed;
+    margin-bottom: 10px;
+}
+
+.city {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 10px 0;
+}
+
+.main-weather {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #8ab4f8;
+}
+
+.details {
+    font-size: 14px;
+    color: #9aa0a6;
+}
+
+.humidity {
+    font-size: 12px;
+    color: #9aa0a6;
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
-    .auth-buttons {
-        flex-wrap: wrap; /* На мобильных кнопки могут переноситься */
-        gap: 0.5rem;
-    }
-
     .main-content {
         padding: 6rem 1rem 1rem;
     }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .weather-card {
+        width: 100%;
+        max-width: 350px;
+    }
 }
 
+@media (max-width: 480px) {
+    .search-input {
+        max-width: 100%;
+    }
 
+    .search-button {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+}
