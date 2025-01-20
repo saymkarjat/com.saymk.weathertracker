@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{/static/css/header.css}">
     <link rel="stylesheet" th:href="@{/static/css/button.css}">
     <link rel="stylesheet" th:href="@{/static/css/weather.css}">
+    <link rel="stylesheet" th:href="@{/static/css/pagination.css}">
 </head>
 
 <body>
@@ -58,12 +59,13 @@
             <div th:each="location : ${locations}" class="weather-card">
                 <!-- Кнопка удаления -->
                 <form th:action="@{/app/location/delete}" method="post">
-                    <input type="hidden" name="locationId" th:value="${location.getId()}" />
+                    <input type="hidden" name="locationId" th:value="${location.getId()}"/>
                     <button type="submit" class="close-button">×</button>
                 </form>
 
                 <!-- Анимация погоды -->
-                <div class="weather-animation" th:switch="${location.getWeatherResponseDTO().getWeather()[0].getMainWeather()}">
+                <div class="weather-animation"
+                     th:switch="${location.getWeatherResponseDTO().getWeather()[0].getMainWeather()}">
                     <div th:case="'Clear'" class="sunny"></div>
                     <div th:case="'Clouds'" class="cloudy"></div>
                     <div th:case="'Rain'" class="rainy"></div>
@@ -77,14 +79,34 @@
 
                 <!-- Информация о погоде -->
                 <div class="weather-info">
-                    <p class="temperature" th:text="${location.getWeatherResponseDTO().getWeatherInfo().getTemp()} + '°C'"></p>
-                    <p class="city" th:text="${location.getName()} + ', ' + ${location.getWeatherResponseDTO().getSys().getCountry()}"></p>
-                    <p class="main-weather" th:text="${location.getWeatherResponseDTO().getWeather()[0].getMainWeather()}"></p>
-                    <p class="details" th:text="'Description: ' + ${location.getWeatherResponseDTO().getWeather()[0].getDescription()}"></p>
-                    <p class="feels-like" th:text="'Feels like: ' + ${location.getWeatherResponseDTO().getWeatherInfo().getFeelsLike()} + '°C'"></p>
-                    <p class="humidity" th:text="'Humidity: ' + ${location.getWeatherResponseDTO().getWeatherInfo().getHumidity()} + '%'"></p>
+                    <p class="temperature"
+                       th:text="${location.getWeatherResponseDTO().getWeatherInfo().getTemp()} + '°C'"></p>
+                    <p class="city"
+                       th:text="${location.getName()} + ', ' + ${location.getWeatherResponseDTO().getSys().getCountry()}"></p>
+                    <p class="main-weather"
+                       th:text="${location.getWeatherResponseDTO().getWeather()[0].getMainWeather()}"></p>
+                    <p class="details"
+                       th:text="'Description: ' + ${location.getWeatherResponseDTO().getWeather()[0].getDescription()}"></p>
+                    <p class="feels-like"
+                       th:text="'Feels like: ' + ${location.getWeatherResponseDTO().getWeatherInfo().getFeelsLike()} + '°C'"></p>
+                    <p class="humidity"
+                       th:text="'Humidity: ' + ${location.getWeatherResponseDTO().getWeatherInfo().getHumidity()} + '%'"></p>
                 </div>
             </div>
+        </div>
+        <div class="pagination" th:if="${totalCount > 1}">
+
+            <a class="pagination-arrow"
+               th:href="@{/app/home(page=${page - 1})}"
+               th:if="${page > 0}" title="Previous">
+                ⮜ Back
+            </a>
+
+            <a class="pagination-arrow"
+               th:href="@{/app/home(page=${page + 1})}"
+               th:if="${page + 1 < totalCount}" title="Next">
+                Next ⮞
+            </a>
         </div>
     </div>
     <div th:if="${!isUserAuthenticated}" class="guest-welcome">
@@ -92,7 +114,6 @@
             Welcome, guest! Please sign in or sign up to explore more features.
         </p>
     </div>
-
 
 
 </main>

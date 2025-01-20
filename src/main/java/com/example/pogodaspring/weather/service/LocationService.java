@@ -5,10 +5,10 @@ import com.example.pogodaspring.exception.UserUndefinedException;
 import com.example.pogodaspring.model.Location;
 import com.example.pogodaspring.model.User;
 import com.example.pogodaspring.repository.UserRepository;
-import com.example.pogodaspring.weather.dto.GeoResponseDTO;
+import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
 import com.example.pogodaspring.weather.dto.LocationDTO;
 import com.example.pogodaspring.weather.dto.LocationMapper;
-import com.example.pogodaspring.weather.dto.WeatherResponseDTO;
+import com.example.pogodaspring.weather.dto.response.WeatherResponseDTO;
 import com.example.pogodaspring.weather.repository.LocationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -88,5 +88,15 @@ public class LocationService {
         User user = userRepository.findByLogin(username).get();
         List<Location> locations = user.getLocations();
         return locationMapper.toDtoList(locations);
+    }
+
+    @Transactional
+    public List<LocationDTO> getRequiredList(int size, int page, String username) {
+        return locationMapper.toDtoList(locationRepository.getRequiredList(size, page, username));
+    }
+
+    @Transactional
+    public long countLocationsByUsername(String username) {
+        return locationRepository.countLocationsByUsername(username);
     }
 }

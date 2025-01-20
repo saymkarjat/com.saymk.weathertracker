@@ -53,21 +53,20 @@
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.1s initial, box-shadow 0.3s ease;
   z-index: 1;
 }
 
 .add-button:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
 }
 
 .location-info {

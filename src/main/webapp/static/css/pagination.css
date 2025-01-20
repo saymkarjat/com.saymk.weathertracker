@@ -1,0 +1,43 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+/* Стрелки пагинации */
+.pagination-arrow {
+    background: linear-gradient(45deg, #6b6b6b, #dedede, #313131); /* Градиент фона */
+    color: #000000; /* Чёрный текст */
+    border: none; /* Убираем рамку */
+    border-radius: 30px; /* Закруглённые края */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none; /* Убираем подчёркивание */
+    cursor: pointer;
+    transition: background 0.5s ease, color 0.5s ease, transform 0.4s ease; /* Плавные переходы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Лёгкая тень */
+}
+
+.pagination-arrow:hover {
+    background: linear-gradient(45deg, #666666, #434343, #010101); /* Более тёмный градиент при наведении */
+    color: #ffffff; /* Белый текст при наведении */
+    transform: scale(1.05); /* Лёгкое увеличение */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4); /* Усиленная тень */
+}
+
+.pagination-arrow:active {
+    background: linear-gradient(45deg, #434343, #222222, #000000); /* Ещё более тёмный градиент */
+    transform: scale(0.95); /* Лёгкое уменьшение при нажатии */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Уменьшение тени */
+}
+
+.pagination-arrow[disabled] {
+    background: #b0b0b0; /* Серый цвет для неактивной кнопки */
+    color: #7a7a7a; /* Бледный текст */
+    cursor: not-allowed; /* Указатель "запрещено" */
+    box-shadow: none; /* Убираем тень */
+    transform: none; /* Убираем анимацию */
+}
