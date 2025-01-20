@@ -1,7 +1,7 @@
 package com.example.pogodaspring.weather.service;
 
-import com.example.pogodaspring.weather.dto.GeoResponseDTO;
-import com.example.pogodaspring.weather.dto.WeatherResponseDTO;
+import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
+import com.example.pogodaspring.weather.dto.response.WeatherResponseDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;

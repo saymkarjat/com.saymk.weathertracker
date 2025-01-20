@@ -1,5 +1,6 @@
 package com.example.pogodaspring.weather.dto;
 
+import com.example.pogodaspring.weather.dto.response.WeatherResponseDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

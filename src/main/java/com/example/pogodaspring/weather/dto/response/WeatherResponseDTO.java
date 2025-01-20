@@ -1,4 +1,4 @@
-package com.example.pogodaspring.weather.dto;
+package com.example.pogodaspring.weather.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

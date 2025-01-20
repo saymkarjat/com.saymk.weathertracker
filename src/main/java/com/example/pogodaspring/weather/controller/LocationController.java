@@ -4,7 +4,6 @@ package com.example.pogodaspring.weather.controller;
 import com.example.pogodaspring.weather.service.LocationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,4 +39,6 @@ public class LocationController {
         locationService.deleteLocationById(Integer.parseInt(locationId), username);
         return "redirect:/app/home";
     }
+
+
 }
