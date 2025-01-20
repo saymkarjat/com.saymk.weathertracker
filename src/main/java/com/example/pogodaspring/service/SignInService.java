@@ -4,13 +4,14 @@ import com.example.pogodaspring.dto.SessionDTO;
 import com.example.pogodaspring.dto.SignInUserDTO;
 import com.example.pogodaspring.model.User;
 import com.example.pogodaspring.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+@Slf4j
 @Service
 public class SignInService {
 //todo
@@ -29,27 +30,22 @@ public class SignInService {
     public SessionDTO authenticate(SignInUserDTO userDTO) {
         Optional<User> user = userRepository.findByLogin(userDTO.username());
         if (user.isEmpty()) {
+            log.error("user undefined: {}", userDTO.username());
             throw new IllegalArgumentException("User undefined.");
         }
         return sessionService.createNewUserSession(user.get());
     }
 
     public boolean isUserCredentialsValid(SignInUserDTO userDTO) {
-        return isUsernameExist(userDTO) && isPasswordCorrect(userDTO);
-    }
-
-    private boolean isPasswordCorrect(SignInUserDTO userDTO) {
-        User user = null;
-        if (userRepository.findByLogin(userDTO.username()).isPresent()) {
-            user = userRepository.findByLogin(userDTO.username()).get();
-        } else {
-            throw new IllegalArgumentException("User undefined");
+        Optional<User> user = userRepository.findByLogin(userDTO.username());
+        if (user.isEmpty()){
+            return false;
         }
-        return passwordService.isPasswordValid(userDTO.password(), user.getPassword());
+        return isPasswordCorrect(userDTO, user.get());
     }
 
-    private boolean isUsernameExist(SignInUserDTO userDTO) {
-        return userRepository.findByLogin(userDTO.username()).isPresent();
+    private boolean isPasswordCorrect(SignInUserDTO userDTO, User user) {
+        return passwordService.isPasswordValid(userDTO.password(), user.getPassword());
     }
 
 }
