@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -59,6 +60,7 @@ public class WeatherResponseDTO {
         private String description;
 
     }
+
     @Getter
     @Setter
     @JsonIgnoreProperties(ignoreUnknown = true)

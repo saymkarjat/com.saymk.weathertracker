@@ -1,13 +1,18 @@
 package com.example.pogodaspring.weather.service;
 
+import com.example.pogodaspring.exception.LocationUndefinedException;
+import com.example.pogodaspring.exception.LocationWeatherUndefinedException;
+import com.example.pogodaspring.exception.WeatherApiException;
 import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
 import com.example.pogodaspring.weather.dto.response.WeatherResponseDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -37,6 +42,8 @@ public class OpenWeatherApiService {
                         .queryParam("appid", API_KEY)
                         .build())
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, exception-> Mono.error(new LocationUndefinedException("location undefined")))
+                .onStatus(HttpStatusCode::is5xxServerError, exception-> Mono.error(new WeatherApiException()))
                 .bodyToMono(String.class)
                 .blockOptional();
     }
@@ -50,14 +57,17 @@ public class OpenWeatherApiService {
                         .queryParam("units", units)
                         .build())
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, exception-> Mono.error(new LocationWeatherUndefinedException()))
+                .onStatus(HttpStatusCode::is5xxServerError, exception-> Mono.error(new WeatherApiException()))
                 .bodyToMono(String.class)
                 .block();
 
     }
+
     @SneakyThrows
     public List<GeoResponseDTO> getLocationsByName(String name, int limit) {
         Optional<String> locationsByName = fetchLocationsByName(name, limit);
-        if (locationsByName.isEmpty()){
+        if (locationsByName.isEmpty()) {
             return new ArrayList<>();
         }
         return objectMapper.readValue(locationsByName.get(), new TypeReference<List<GeoResponseDTO>>() {
