@@ -7,14 +7,14 @@ import com.example.pogodaspring.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
 @Slf4j
 @Service
 public class SignInService {
-//todo
+    //todo
     private final UserRepository userRepository;
     private final PasswordService passwordService;
     private final SessionService sessionService;
@@ -38,7 +38,7 @@ public class SignInService {
 
     public boolean isUserCredentialsValid(SignInUserDTO userDTO) {
         Optional<User> user = userRepository.findByLogin(userDTO.username());
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             return false;
         }
         return isPasswordCorrect(userDTO, user.get());

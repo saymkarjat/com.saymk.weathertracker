@@ -19,10 +19,10 @@ public class LocationController {
     @PostMapping("add")
     public String add(@RequestAttribute(name = "username") String username,
                       @RequestAttribute(name = "isUserAuthenticated") Boolean isUserAuthenticated,
-                          @RequestParam(name = "latitude") String latitude,
+                      @RequestParam(name = "latitude") String latitude,
                       @RequestParam(name = "longitude") String longitude,
                       @RequestParam(name = "city") String city) {
-        if (!isUserAuthenticated){
+        if (!isUserAuthenticated) {
             return "redirect:/auth/logout";
         }
         locationService.addNewLocation(latitude, longitude, city, username);
@@ -31,9 +31,9 @@ public class LocationController {
 
     @PostMapping("delete")
     public String delete(@RequestAttribute(name = "username") String username,
-                      @RequestAttribute(name = "isUserAuthenticated") Boolean isUserAuthenticated,
-                      @RequestParam(name = "locationId") String locationId) {
-        if (!isUserAuthenticated){
+                         @RequestAttribute(name = "isUserAuthenticated") Boolean isUserAuthenticated,
+                         @RequestParam(name = "locationId") String locationId) {
+        if (!isUserAuthenticated) {
             return "redirect:/auth/logout";
         }
         locationService.deleteLocationById(Integer.parseInt(locationId), username);

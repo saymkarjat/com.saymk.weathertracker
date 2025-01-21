@@ -1,11 +1,8 @@
 package com.example.pogodaspring.weather.dto;
 
-import com.example.pogodaspring.dto.SessionDTO;
-import com.example.pogodaspring.dto.SessionMapper;
 import com.example.pogodaspring.model.Location;
-import com.example.pogodaspring.model.Session;
-import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 

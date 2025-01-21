@@ -1,4 +1,4 @@
-package com.example.pogodaspring.controller;
+package com.example.pogodaspring.auth;
 
 import com.example.pogodaspring.dto.SessionDTO;
 import com.example.pogodaspring.dto.SignInUserDTO;
@@ -9,7 +9,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -41,6 +40,7 @@ public class SignInController {
         return "signinpost";
 
     }
+
     //todo
     @PostMapping("signin")
     public String signIn(@ModelAttribute("userDTO") @Validated SignInUserDTO userDTO, BindingResult bindingResult, HttpServletResponse resp) {
@@ -59,21 +59,22 @@ public class SignInController {
 
         return "redirect:/app/home";
     }
+
     //todo
     @GetMapping("logout")
     public String logOut(HttpServletRequest req, HttpServletResponse resp) {
-            Cookie cookie = WebUtils.getCookie(req, "session_id");
-            if (cookie != null) {
-                try {
-                    sessionService.deleteSession(UUID.fromString(cookie.getValue()));
-                } catch (IllegalArgumentException e) {
-                    //log.info
-                }
-                cookie.setValue("");
-                cookie.setMaxAge(0);
-                cookie.setPath("/");
-                resp.addCookie(cookie);
+        Cookie cookie = WebUtils.getCookie(req, "session_id");
+        if (cookie != null) {
+            try {
+                sessionService.deleteSession(UUID.fromString(cookie.getValue()));
+            } catch (IllegalArgumentException e) {
+                //log.info
             }
+            cookie.setValue("");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            resp.addCookie(cookie);
+        }
 
         return "redirect:/app/home";
     }

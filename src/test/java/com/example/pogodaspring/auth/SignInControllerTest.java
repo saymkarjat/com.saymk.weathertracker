@@ -1,4 +1,4 @@
-package com.example.pogodaspring.controller;
+package com.example.pogodaspring.auth;
 
 import com.example.pogodaspring.config.TestSpringConfig;
 import com.example.pogodaspring.model.Session;
@@ -41,7 +41,7 @@ class SignInControllerTest {
 
     @Test
     @SneakyThrows
-    void signIn() {
+    void shouldCreateActiveSessionAfterSignIn() {
         mockMvc.perform(post("/auth/signup")
                         .param("username", "vasya1")
                         .param("password", "12345678")
@@ -60,7 +60,7 @@ class SignInControllerTest {
 
     @Test
     @SneakyThrows
-    void logOut() {
+    void shouldClearAllActiveSessionsAfterLogOut() {
         mockMvc.perform(post("/auth/signup")
                         .param("username", "vasya")
                         .param("password", "12345678")

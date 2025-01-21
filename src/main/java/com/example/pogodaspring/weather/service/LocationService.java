@@ -5,9 +5,9 @@ import com.example.pogodaspring.exception.UserUndefinedException;
 import com.example.pogodaspring.model.Location;
 import com.example.pogodaspring.model.User;
 import com.example.pogodaspring.repository.UserRepository;
-import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
 import com.example.pogodaspring.weather.dto.LocationDTO;
 import com.example.pogodaspring.weather.dto.LocationMapper;
+import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
 import com.example.pogodaspring.weather.dto.response.WeatherResponseDTO;
 import com.example.pogodaspring.weather.repository.LocationRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Slf4j
 @Service
 public class LocationService {
@@ -37,7 +38,7 @@ public class LocationService {
         return weatherApiService.getLocationsByName(name, limit);
     }
 
-    public WeatherResponseDTO getWeatherInfoByCoordinate(BigDecimal latitude, BigDecimal longitude, String units){
+    public WeatherResponseDTO getWeatherInfoByCoordinate(BigDecimal latitude, BigDecimal longitude, String units) {
         return weatherApiService.getWeatherInfoByCoordinate(latitude, longitude, units);
     }
 
@@ -46,7 +47,7 @@ public class LocationService {
         Optional<User> optionalUser = userRepository.findByLogin(username);
         User user = optionalUser.get();
         Optional<Location> locationById = locationRepository.findLocationById(id);
-        if (locationById.isEmpty()){
+        if (locationById.isEmpty()) {
             log.error("Location undefined");
             throw new LocationUndefinedException("Location undefined");
         }
@@ -67,9 +68,9 @@ public class LocationService {
     @Transactional
     public void addNewLocation(String lat, String lon, String city, String username) {
         Optional<User> optionalUser = userRepository.findByLogin(username);
-        if (optionalUser.isEmpty()){
+        if (optionalUser.isEmpty()) {
             log.error("This user undefined: {}", username);
-            throw new UserUndefinedException("This user undefined: "+username);
+            throw new UserUndefinedException("This user undefined: " + username);
         }
         User user = optionalUser.get();
         Location location = Location.builder()
@@ -81,13 +82,6 @@ public class LocationService {
         locationRepository.saveLocation(location);
         user.getLocations().add(location);
         userRepository.updateUser(user);
-    }
-
-    @Transactional(readOnly = true)
-    public List<LocationDTO> getUserLocations(String username) {
-        User user = userRepository.findByLogin(username).get();
-        List<Location> locations = user.getLocations();
-        return locationMapper.toDtoList(locations);
     }
 
     @Transactional

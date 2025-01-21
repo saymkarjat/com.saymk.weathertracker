@@ -21,6 +21,7 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
 import java.util.Properties;
+
 @Profile("dev")
 @Configuration
 @ComponentScan("com.example.pogodaspring")
@@ -132,6 +133,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
     }
+
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();

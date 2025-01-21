@@ -1,8 +1,8 @@
 package com.example.pogodaspring.weather.controller;
 
 
-import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
 import com.example.pogodaspring.weather.dto.LocationDTO;
+import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
 import com.example.pogodaspring.weather.service.LocationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/app")
 public class HomeController {
 
-    private LocationService locationService;
     private final int size = 5;
     private final String units = "metric";
+    private LocationService locationService;
 
     public HomeController(LocationService locationService) {
         this.locationService = locationService;
@@ -30,9 +30,9 @@ public class HomeController {
         model.addAttribute("username", username);
         model.addAttribute("isUserAuthenticated", isUserAuthenticated);
         List<LocationDTO> updatedLocations;
-        if (isUserAuthenticated){
+        if (isUserAuthenticated) {
             updatedLocations = locationService.updateWeatherInfo(locationService.getRequiredList(size, page, username), units);
-            model.addAttribute("totalCount", Math.ceil((double) locationService.countLocationsByUsername(username) /size));
+            model.addAttribute("totalCount", Math.ceil((double) locationService.countLocationsByUsername(username) / size));
             model.addAttribute("locations", updatedLocations);
             model.addAttribute("page", page);
         }
@@ -43,8 +43,8 @@ public class HomeController {
     public String search(@RequestAttribute(name = "username") String username,
                          @RequestAttribute(name = "isUserAuthenticated") Boolean isUserAuthenticated,
                          @RequestParam(name = "location") String location,
-                         Model model){
-        if (!isUserAuthenticated){
+                         Model model) {
+        if (!isUserAuthenticated) {
             return "redirect:/auth/logout";
         }
         model.addAttribute("isUserAuthenticated", true);

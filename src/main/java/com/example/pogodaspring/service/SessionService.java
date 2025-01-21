@@ -8,6 +8,7 @@ import com.example.pogodaspring.repository.SessionRepository;
 import com.example.pogodaspring.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;

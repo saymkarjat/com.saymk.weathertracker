@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepository  {
+public class UserRepository {
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -44,8 +44,9 @@ public class UserRepository  {
                 .setParameter("login", login)
                 .uniqueResultOptional();
     }
+
     @Transactional(readOnly = true)
-    public List<Session> getUserSessions(String login){
+    public List<Session> getUserSessions(String login) {
         String hql = "SELECT s FROM Session s JOIN FETCH s.user u WHERE u.login = :login";
         return sessionFactory.getCurrentSession().createQuery(hql, Session.class)
                 .setParameter("login", login)

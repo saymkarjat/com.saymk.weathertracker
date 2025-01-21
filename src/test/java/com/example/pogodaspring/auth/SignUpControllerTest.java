@@ -1,4 +1,4 @@
-package com.example.pogodaspring.controller;
+package com.example.pogodaspring.auth;
 import com.example.pogodaspring.config.TestSpringConfig;
 import com.example.pogodaspring.model.User;
 import com.example.pogodaspring.repository.UserRepository;
