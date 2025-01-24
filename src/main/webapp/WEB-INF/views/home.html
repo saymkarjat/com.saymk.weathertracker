@@ -37,7 +37,7 @@
 </header>
 
 <main class="main-content">
-    <h1 class="page-title">Welcome to the Home Page!</h1>
+    <h1 class="page-title">Weather Tracker</h1>
     <div th:if="${isUserAuthenticated}" class="user-greeting">
         <form th:action="@{/app/search}" method="post" class="search-form">
             <input
@@ -111,7 +111,7 @@
     </div>
     <div th:if="${!isUserAuthenticated}" class="guest-welcome">
         <p>
-            Welcome, guest! Please sign in or sign up to explore more features.
+            Войдите или зарегистрируйтесь!
         </p>
 
     </div>

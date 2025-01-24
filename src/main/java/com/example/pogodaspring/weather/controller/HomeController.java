@@ -4,6 +4,7 @@ package com.example.pogodaspring.weather.controller;
 import com.example.pogodaspring.weather.dto.LocationDTO;
 import com.example.pogodaspring.weather.dto.response.GeoResponseDTO;
 import com.example.pogodaspring.weather.service.LocationService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/app")
 public class HomeController {
+    @Value("${weather.size}")
+    private int size;
 
-    private final int size = 5;
-    private final String units = "metric";
+    @Value("${weather.units}")
+    private String units;
+
     private LocationService locationService;
 
     public HomeController(LocationService locationService) {
