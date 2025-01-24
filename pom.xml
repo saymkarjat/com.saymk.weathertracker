@@ -19,6 +19,7 @@
   </properties>
 
   <dependencies>
+
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -246,6 +247,13 @@
     </dependency>
 
     <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
@@ -276,6 +284,7 @@
   </dependencies>
 
   <build>
+    <finalName>weather</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
