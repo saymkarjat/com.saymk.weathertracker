@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,7 +23,8 @@ import java.util.Optional;
 @Service
 public class OpenWeatherApiService {
     private final String BASE_URL = "https://api.openweathermap.org";
-    private final String API_KEY = "468ae6faa04106a9b2f60ca9774b305e";
+    @Value("${openweather.api.key}")
+    private String API_KEY;
     private ObjectMapper objectMapper;
     private WebClient webClient;
 
