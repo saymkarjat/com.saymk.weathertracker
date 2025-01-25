@@ -7,8 +7,8 @@ networks:
 
 services:
   app:
-    image: my-tomcat-app:latest
-    container_name: my-tomcat-app
+    image: saymkarjat/weather-spring:latest
+    container_name: weatherspring
     ports:
       - "8080:8080"
     environment:
