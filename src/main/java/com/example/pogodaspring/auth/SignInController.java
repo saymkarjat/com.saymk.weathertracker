@@ -52,7 +52,7 @@ public class SignInController {
         SessionDTO sessionDTO = signInService.authenticate(userDTO);
         Cookie cookie = new Cookie("session_id", sessionDTO.id().toString());
         cookie.setHttpOnly(true);
-        cookie.setSecure(true);
+        cookie.setSecure(false);
         cookie.setPath("/");
         cookie.setMaxAge(2 * 3600);
         resp.addCookie(cookie);
