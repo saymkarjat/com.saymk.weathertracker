@@ -49,7 +49,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/static/**");
+                .excludePathPatterns("/static/**35335");
     }
 
     @Bean
